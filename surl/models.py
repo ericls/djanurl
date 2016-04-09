@@ -5,7 +5,7 @@ import shortuuid
 
 
 def gen_uuid():
-    return str(shortuuid.ShortUUID().random(length=5))
+    return str(shortuuid.ShortUUID().random(length=4))
 
 
 class Surl(models.Model):

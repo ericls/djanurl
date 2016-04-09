@@ -1,0 +1,26 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+.navbar {
+    min-height: 50px;
+}
+
+.navbar input, .navbar button, .navbar .btn{
+    height: 34px;
+    margin-top:6px;
+}
+
+#main {
+    margin-top: 10px;
+}
+
+.logo {
+    max-width: 100%;
+    width: 360px;
+    display: block;
+    margin: 30px auto;
+}

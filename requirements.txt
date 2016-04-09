@@ -1,3 +1,4 @@
 Django
 python-memcached
 shortuuid
+django-registration
