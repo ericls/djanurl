@@ -3,20 +3,93 @@
 
 {% block main %}
     <div class="row">
-        <img class="logo" src="{% static 'surl/img/ovzlogo.png' %}" alt="">
+        <a href="/">
+            <img class="logo" src="{% static 'surl/img/ovzlogo.png' %}" alt="">
+        </a>
     </div>
     <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 warning-info">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row create-form">
         <div class="col-lg-8 col-lg-offset-2">
-            <form class="form">
+            <form id="surl-form" class="form" action="{% url 'create' %}" method="post">
+                {% csrf_token %}
                 <div class="row">
-                    <div class="col-lg-8">
-                        <input type="text" class="form-control input-block-level" placeholder="在此输入网址">
+                    <div class="col-lg-9 col-md-8">
+                        <input type="text" name="url" class="form-control input-block-level url-input" placeholder="在此输入网址">
                     </div>
-                    <div class="col-lg-4">
-                        <button type="submit" class="btn btn-danger btn-block">生成短网址</button>
+                    <div class="col-lg-3 col-md-4">
+                        <button type="submit" class="btn btn-danger btn-block surl-btn">生成短网址</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+    <div class="row success-info" style="display: {% if surl %}block{% else %}none{% endif %}">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="alert alert-success" role="alert">
+                短网址成功建立! <br>
+                http://{{ request.META.HTTP_HOST }}/<span class="slug">{{ surl.slug }}</span>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_ext %}
+    <script>
+        // using jQuery
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+        $(document).ready(function () {
+            $('#surl-form').submit(function (e) {
+                e.preventDefault();
+                var url = $(this).find('.url-input').val();
+                $.post( "{% url 'api_create' %}", {url: url}, function( data ) {
+                    var wi = $('.warning-info');
+                    var si = $('.success-info');
+                    wi.empty();
+                    $('alert-success').empty();
+                    if(data.error){
+                        wi.append(
+                                "<div class='alert alert-warning' role='alert'>" + data.error +"</div>"
+                        )
+                    } else {
+                        si.show();
+                        $('.slug').text(data.surl);
+                    }
+                }, "json");
+            });
+        })
+    </script>
 {% endblock %}

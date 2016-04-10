@@ -2,3 +2,4 @@ Django
 python-memcached
 shortuuid
 django-registration
+django-bootstrap-form

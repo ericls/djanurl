@@ -1,0 +1,16 @@
+{% extends "surl/base.html" %}
+{% load bootstrap %}
+{% load i18n %}
+
+{% block main %}
+<form method="post" action=".">
+  {% csrf_token %}
+  {{ form|bootstrap }}
+
+  <input type="submit" value="{% trans 'Log in' %}" />
+  <input type="hidden" name="next" value="/" />
+</form>
+
+{#<p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>#}
+<p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+{% endblock %}

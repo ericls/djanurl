@@ -1,0 +1,25 @@
+{% extends 'surl/base.html' %}
+{% load staticfiles %}
+
+{% block main %}
+    <div class="row">
+    <p class="text-center">总点击次数: {{ request.user.profile.count }} (包含已删除链接)</p>
+        <table class="table table-striped my-table">
+            <thead>
+            <tr><th>原网址</th><th>短网址</th><th>点击次数</th></tr>
+            </thead>
+            <tbody>
+            {% for url in request.user.urls.all %}
+                <tr>
+                    <td>{{ url.url }}</td>
+                    <td>http://{{ request.META.HTTP_HOST }}/{{ url.slug }}</td>
+                    <td>{{ url.count }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block footer_ext %}
+{% endblock %}

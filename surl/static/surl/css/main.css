@@ -9,18 +9,69 @@
     min-height: 50px;
 }
 
-.navbar input, .navbar button, .navbar .btn{
-    height: 34px;
-    margin-top:6px;
+/*.navbar input, .navbar button, .navbar .btn{*/
+    /*height: 34px;*/
+/*}*/
+
+.nav-container, .navbar-brand {
+    line-height: 50px;
+}
+
+.navbar-brand {
+    height: auto;
 }
 
 #main {
-    margin-top: 10px;
+    margin-top: 30px;
+}
+
+.navbar-toggle {
+    margin-top: 18px;
+}
+
+.navbar-form{
+    margin-top: 8px;
+}
+
+.navbar-form a.btn.btn-warning{
+    margin-top: 2px;
+}
+
+.navbar-form button.btn.btn-success{
+    margin-top: 1px;
 }
 
 .logo {
     max-width: 100%;
-    width: 360px;
+    width: 220px;
     display: block;
-    margin: 30px auto;
+    margin: auto;
+}
+
+.success-info, .create-form {
+    margin-bottom: 20px;
+}
+
+.logged-in {
+    font-size: 16px;
+    line-height: 50px
+}
+
+footer {
+    text-align: center;
+}
+
+@media(max-width:767px){}
+@media(min-width:768px){}
+@media(min-width:992px){
+    .logo {
+        width: 360px;
+        margin: 30px auto;
+    }
+}
+@media(min-width:1200px){
+    .logo {
+        width: 360px;
+        margin: 30px auto;
+    }
 }

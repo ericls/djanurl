@@ -1,0 +1,12 @@
+{% extends "surl/base.html" %}
+{% load bootstrap %}
+{% load i18n %}
+
+{% block main %}
+<form class="form" method="post" action=".">
+  {% csrf_token %}
+  {{ form|bootstrap }}
+
+  <input type="submit" value="{% trans 'Submit' %}" />
+</form>
+{% endblock %}

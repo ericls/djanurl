@@ -15,6 +15,13 @@ class Surl(models.Model):
     count = models.IntegerField(default=0)
     password = models.CharField(max_length=20, blank=True, default='')
 
+    @classmethod
+    def create_surl(cls, url, user_id=0, password=''):
+        if user_id:
+            return cls.objects.create(url=url, user_id=user_id, password=password)
+        else:
+            return cls.objects.create(url=url, password='')
+
     def save(self, *args, **kwargs):
         if not self.user_id:
             self.user = User.objects.get(username='surl_system')
@@ -30,5 +37,5 @@ class Surl(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name='profile')
     count = models.IntegerField(default=0)
