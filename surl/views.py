@@ -29,7 +29,7 @@ def api_create_surl(request):
     return JsonResponse({'surl': surl.slug})
 
 
-def create_surl_view(request):  # If javascript is not enabled, fallback to this view
+def create_surl_view(request):  # If javascript is not enabled, fall back to this view
     if request.method == 'GET':
         return HttpResponse('Not Allowed', status=405)
     url = request.POST.get('url')
