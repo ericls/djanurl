@@ -66,3 +66,8 @@ tmtagsHistory
 *.sublime-project
 *.sublime-workspace
 .bundle
+
+
+# Production Settings #
+#######################
+djanurl/production.py
