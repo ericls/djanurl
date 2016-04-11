@@ -71,3 +71,7 @@ tmtagsHistory
 # Production Settings #
 #######################
 djanurl/production.py
+
+# Custom templates #
+#######################
+templates/surl/
