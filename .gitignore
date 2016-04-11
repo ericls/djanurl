@@ -75,3 +75,7 @@ djanurl/production.py
 # Custom templates #
 #######################
 templates/surl/
+
+# static files        #
+#######################
+static/
