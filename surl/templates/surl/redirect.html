@@ -1,0 +1,26 @@
+{% extends 'surl/base.html' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="well well-lg">
+                <h3>目标链接跳转中</h3>
+                <p>(在这里展示你想展示的内容)</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block header_ext %}
+    {# Automatic redirection in 10s 十秒自动跳转 #}
+    <meta http-equiv="refresh" content="10; url={{ surl.url }}" />
+{% endblock %}
+
+{% block footer_ext %}
+    {# Automatic redirection in 10s 十秒自动跳转 #}
+    <script>
+        setTimeout(function () {
+            window.location.href = "{{ surl.url }}"; //will redirect to your blog page (an ex: blog.html)
+        }, 10000); //will call the function after 2 secs.
+    </script>
+{% endblock %}

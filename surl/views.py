@@ -59,9 +59,13 @@ def my_surl_view(request):
 
 def go_to_url(request, slug):
     explicit_redirect = getattr(settings, 'EXPLICIT_REDIRECT', False)
-    if explicit_redirect:
-        pass  # TODO: explicit redirection
+    surl = Surl.objects.filter(slug=slug).first()
+    if not surl:
+        return HttpResponseRedirect('/')
     else:
-        surl = Surl.objects.get(slug=slug)
         surl.increase_count()
+    if explicit_redirect:
+        return render(request, 'surl/redirect.html', {'title': '跳转中', 'surl': surl})
+        # pass  # TODO: explicit redirection
+    else:
         return HttpResponseRedirect(surl.url)
