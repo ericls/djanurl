@@ -12,7 +12,10 @@ Django 支持的 Python3 版本
 ## 提示
 1. 请把自定义模板放置于 `templates`;
 2. 请将生产环境的配置写在 `djanurl/production.py`;
-3. 需要运行 `python manage.py collectstatics`. 这需要设置 `STATIC_ROOT`.
+3. 需要运行 `python manage.py collectstatics`. 这需要设置 `STATIC_ROOT`;
+4. 在 `production.py` 设置 `EXPLICIT_REDIRECT = True` 开启显式跳转;
+5. 显式跳转模板请创建到自定义模板目录的`surl/redirect.html`, 可参考 surl 这个 app 的模板;
+6. 默认开启 i18n 和 i10n, 网站语言根据浏览器/系统语言自动判断.
 
 -------
 
@@ -30,6 +33,9 @@ In addition to `pip install -r requirements.txt`, you may also need to install d
 1. You should put your own templates in the `templates` folder in the project root directory;
 2. You may have your production settings set in `djanurl/production.py`
 3. You might need to run `python manage.py collectstatics`. In order to do this, you should have `STATIC_ROOT` set in your settings
+4. Set `EXPLICIT_REDIRECT = True` in `production.py` to enable explicit redirection
+5. Template used in explicit redirection is located at `surl/redirect.html`
+6. i18n and i10n is enabled by default. Language code is detected based on browser and os languages.
 
 ## 示例部署文件 Example Deployment Files
 

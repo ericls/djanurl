@@ -1,12 +1,13 @@
 {% extends 'surl/base.html' %}
 {% load staticfiles %}
+{% load i18n %}
 
 {% block main %}
     <div class="row">
-    <p class="text-center">总点击次数: {{ request.user.profile.count }} (包含已删除链接)</p>
+    <p class="text-center">{% trans 'Total clicks' %}: {{ request.user.profile.count }} ({% trans 'including deleted URLs' %})</p>
         <table class="table table-striped my-table">
             <thead>
-            <tr><th>原网址</th><th>短网址</th><th>点击次数</th></tr>
+            <tr><th>{% trans 'Long URL' %}</th><th>{% trans 'Short URL' %}</th><th>{% trans 'Clicks' %}</th></tr>
             </thead>
             <tbody>
             {% for url in request.user.urls.all %}

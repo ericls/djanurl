@@ -1,5 +1,6 @@
 {% extends 'surl/base.html' %}
 {% load staticfiles %}
+{% load i18n %}
 
 {% block main %}
     <div class="row">
@@ -22,10 +23,10 @@
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-lg-9 col-md-8">
-                        <input type="text" name="url" class="form-control input-block-level url-input" placeholder="在此输入网址">
+                        <input type="text" name="url" class="form-control input-block-level url-input" placeholder="{% trans 'Long URL' %}">
                     </div>
                     <div class="col-lg-3 col-md-4">
-                        <button type="submit" class="btn btn-danger btn-block surl-btn">生成短网址</button>
+                        <button type="submit" class="btn btn-danger btn-block surl-btn">{% trans 'Shorten URL' %}</button>
                     </div>
                 </div>
             </form>
@@ -34,7 +35,7 @@
     <div class="row success-info" style="display: {% if surl %}block{% else %}none{% endif %}">
         <div class="col-lg-8 col-lg-offset-2">
             <div class="alert alert-success" role="alert">
-                短网址成功建立! <br>
+                {% trans 'Short URL successfully created' %}! <br>
                 http://{{ request.META.HTTP_HOST }}/<span class="slug">{{ surl.slug }}</span>
             </div>
         </div>

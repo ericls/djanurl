@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.conf import settings
+from django.utils.translation import ugettext as _
 
 from surl.models import Surl, Profile
 
@@ -35,10 +36,10 @@ def create_surl_view(request):  # If javascript is not enabled, fall back to thi
     url = request.POST.get('url')
     password = request.POST.get('password', '')
     if not url:
-        messages.add_message(request, messages.WARNING, 'URL不能为空')
+        messages.add_message(request, messages.WARNING, _('URL cannot be empty'))
         return HttpResponseRedirect(reverse('index'))
     if '.' not in url:
-        messages.add_message(request, messages.WARNING, 'URL不合法')
+        messages.add_message(request, messages.WARNING, _('URL is invalid'))
         return HttpResponseRedirect(reverse('index'))
     if '//' not in url:
         url = 'http://{}'.format(url)
@@ -48,13 +49,13 @@ def create_surl_view(request):  # If javascript is not enabled, fall back to thi
 
 def my_surl_view(request):
     if not request.user.is_authenticated():
-        messages.add_message(request, messages.error, '请先登录')
+        messages.add_message(request, messages.error, _('Please log in first'))
         return HttpResponseRedirect(reverse('auth_login'))
     try:
         request.user.profile
     except Profile.DoesNotExist:
         Profile.objects.create(user=request.user)
-    return render(request, 'surl/my.html', {'title': '我的短网址'})
+    return render(request, 'surl/my.html', {'title': _('My short URLs')})
 
 
 def go_to_url(request, slug):
@@ -65,7 +66,7 @@ def go_to_url(request, slug):
     else:
         surl.increase_count()
     if explicit_redirect:
-        return render(request, 'surl/redirect.html', {'title': '跳转中', 'surl': surl})
+        return render(request, 'surl/redirect.html', {'title': _('Redirecting'), 'surl': surl})
         # pass  # TODO: explicit redirection
     else:
         return HttpResponseRedirect(surl.url)

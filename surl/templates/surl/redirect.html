@@ -1,11 +1,19 @@
 {% extends 'surl/base.html' %}
+{% load i18n %}
 
 {% block main %}
+    {% get_current_language as LANGUAGE_CODE %}
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3">
             <div class="well well-lg">
-                <h3>目标链接跳转中</h3>
-                <p>(在这里展示你想展示的内容)</p>
+                {# 请自行修改不同语言下显式的内容 #}
+                {% if 'zh' in LANGUAGE_CODE %}
+                    <h3>目标链接跳转中</h3>
+                    <p>(在这里展示你想展示的内容)</p>
+                {% elif 'en' in LANGUAGE_CODE %}
+                    <h3>Redirecting</h3>
+                    <p>(.....)</p>
+                {% endif %}
             </div>
         </div>
     </div>
