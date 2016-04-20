@@ -79,3 +79,7 @@ templates/surl/
 # static files        #
 #######################
 static/
+
+# Compiled Message Files #
+##########################
+*.mo
